@@ -1,18 +1,16 @@
-ryu:
-        image: osrg/ryu
-        ports:
-                - "6633:6633"
-        command: ryu-manager --verbose ryu-master/ryu/app/simple_switch_13.py
-        stdin_open: true
-        tty: true
 mininet:
-        image: ciena/mininet
-        command: mn --mac --controller=remote --switch=ovsk,protocols=OpenFlow13
-        privileged: true
-        net: container:ryu
-        volumes:
-                - /lib/modules:/lib/modules
-        volumes_from:
-                - ryu
-        stdin_open: true
-        tty: true
+  image: ciena/mininet
+  command: /bin/bash #mn --mac --controller=remote --switch=ovsk,protocols=OpenFlow13
+  privileged: true
+  net: container:ryu
+  volumes:
+    - /lib/modules:/lib/modules
+  stdin_open: true
+  tty: true
+ryu:
+  image: osrg/ryu
+  ports:
+    - "6633:6633"
+  command: /bin/bash #ryu-manager --verbose ryu-master/ryu/app/simple_switch_13.py
+  stdin_open: true
+  tty: true
